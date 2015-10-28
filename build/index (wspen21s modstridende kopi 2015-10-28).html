@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Chrome DevTools</title>
+
+    <meta name="description" content="-- DESCRIPTION HERE --">
+    <meta name="author" content="Allan Kimmer Jensen">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="css/highlight/styles/monokai_sublime.css" id="highlight-theme">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <link rel="stylesheet" href="css/custom.css"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides"><section id="title" class="slide">
+<h1>Chrome Dev Tools</h1><h3>Tips &amp; Trick for better debugging!</h3>
+</section>
+<section>
+<section id="about-me-about_me" class="aboutme slide">
+<h1>Allan Kimmer Jensen</h1><p>Front-end @ <a href="http://pentia.dk">Pentia A/S</a></p>
+</section>
+<section id="about-me-no-pictures" class="slide">
+<p><img src="/images/javascript-fb.png" alt="Wauw, no images?"></p>
+</section>
+</section>
+<section>
+<section id="alert-alert" class="slide">
+<h3>if you use</h3><h1>alert()</h1><h5>for debugging you should know...</h5>
+</section>
+<section id="alert-gif" class="slide">
+<p><img src="/images/alert.gif" alt="Wauw, no images?"></p>
+</section>
+<section id="alert-use-other-stuff" class="slide">
+<h3>use</h3><ul>
+<li>debugger;<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">namingThingsIsReallyHard</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">var</span> hello = <span class="hljs-string">'bonjour'</span>;
+  <span class="hljs-keyword">debugger</span>;
+  <span class="hljs-keyword">return</span> hello + <span class="hljs-string">' '</span> + name;
+}
+</code></pre>
+</li>
+<li>or just set breakpoints in your browser</li>
+<li>or maybe console.log()<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">namingThingsIsReallyHard</span>(<span class="hljs-params">name</span>) </span>{
+  <span class="hljs-keyword">var</span> hello = <span class="hljs-string">'bonjour'</span>;
+  <span class="hljs-built_in">console</span>.log(
+      <span class="hljs-string">'logged that the name was %s, cool!'</span>,
+      name
+  );
+  <span class="hljs-keyword">return</span> hello + <span class="hljs-string">' '</span> + name;
+}
+</code></pre>
+</li>
+</ul>
+</section>
+</section>
+<section id="agenda" class="slide">
+<h1>Agenda</h1><ul>
+<li>alert()</li>
+<li>Console API</li>
+<li>General debugging</li>
+</ul>
+<blockquote>
+<p>Something clever</p>
+</blockquote>
+</section>
+<section>
+<section id="console-api-overview" class="slide">
+<h1>Console API</h1><ul>
+<li>console.table()</li>
+<li>copy()</li>
+<li>monitor()</li>
+</ul>
+</section>
+<section id="console-api-table" class="slide">
+<h1>console.table()</h1><pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.table();
+</code></pre>
+<pre><code class="lang-javascript">fetch(<span class="hljs-string">'http://beta.json-generator.com/api/json/get/N1m44mUZe'</span>, {
+    method: <span class="hljs-string">'get'</span>
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-keyword">return</span> response.json(); <span class="hljs-comment">// Convert to JSON</span>
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+  <span class="hljs-built_in">console</span>.table(json);
+});
+</code></pre>
+</section>
+<section id="console-api-copy" class="slide">
+<h1>copy()</h1><pre><code class="lang-javascript">copy()
+</code></pre>
+<pre><code class="lang-javascript">fetch(<span class="hljs-string">'http://beta.json-generator.com/api/json/get/N1m44mUZe'</span>, {
+    method: <span class="hljs-string">'get'</span>
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-keyword">return</span> response.json(); <span class="hljs-comment">// Convert to JSON</span>
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">json</span>) </span>{
+  copy(json);
+});
+</code></pre>
+</section>
+<section id="console-api-monitor" class="slide">
+<h1>monitor()</h1><pre><code class="lang-javascript">monitor()
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-comment">// We'll define a function</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomethingStupid</span>(<span class="hljs-params">string, number</span>) </span>{
+    <span class="hljs-keyword">return</span> number + string;
+}
+
+<span class="hljs-comment">// Monitor the function</span>
+monitor(doSomethingStupid)
+
+<span class="hljs-comment">// Call it and watch the magic!</span>
+doSomethingStupid(<span class="hljs-number">7</span>, <span class="hljs-string">'string'</span>)
+</code></pre>
+</section>
+</section>
+<section>
+
+</section>
+<section id="what_s_next" class="slide">
+<h1>What&#39;s next</h1><ul>
+<li>API&#39;s for your editor.</li>
+</ul>
+</section>
+<section id="thanks_and_qa" class="slide">
+<h1>Questions?</h1><h3>Also, thanks for listning!</h3><p><img src="/images/end.gif" alt="Wauw, no images?"></p>
+<p><i class="fa fa-twitter"></i><a href="https://twitter.com/AllanKJensen">AllanKJensen</a>
+<i class="fa fa-github"></i><a href="https://github.com/Saturate">Saturate</a></p>
+</section></div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: Reveal.getQueryHash().transition || 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [
+        //{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        //{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/zoom-js/zoom.js', async: true },
+        { src: 'plugin/notes/notes.js', async: true }
+      ]
+    });
+    </script>
+
+    <script src="js/dynamic-theme.js"></script><script src="js/custom.js"></script>
+
+  </body>
+</html>
